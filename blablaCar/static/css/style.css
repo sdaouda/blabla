@@ -1,0 +1,189 @@
+
+/*--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+--*/
+* {
+box-sizing: border-box;
+}
+body{
+	overflow-x: hidden;
+}
+.container{
+  max-width:960px;
+  position: relative;
+	  min-height: 100vh;
+}
+.container-fluid{
+  max-width:960px;
+  position: relative;
+}
+.navbar ul li{
+
+}
+/*.navbar ul li a:link, .navbar ul li a:visited {
+	color: #5E7830;
+	display: block;
+	background: url('images/menu3.gif') no-repeat;
+	padding: 0 2px 0 2px;
+	}
+	
+.navbar ul li a{
+	color: #26370A;
+	background-image: url("blablaCar/static/images/menu3.gif") no-repeat;
+	
+	}*/
+
+
+.jumbotron{
+  padding:0;
+}
+/* Make the image fully responsive */
+.carousel-inner img {
+  width: 100%;
+  height: 100%;
+}
+.table{
+	max-width: 100%;
+	border-collapse: collapse;
+	margin:0;
+}
+div .cookSmall{
+	display: none;
+}
+caption{
+	caption-side: top;
+	margin: 0;
+	padding:0;
+}
+#mainList .table td, .table th {
+  padding:1px;
+  border:1px solid #ccc;
+}
+#details .table thead{
+	background-color: #6c757d;
+}
+
+#details .table td { 
+		display: table-cell;
+		vertical-align: inherit;
+		text-align: inherit; 
+}
+#details .table tbody img {
+	width: 150px;
+	height: 100px;
+	display: block;
+		margin-left: auto;
+		margin-right: auto;
+}
+
+#details .table td, .table th {
+  padding:1px;
+  padding: 0;
+  border:1px solid #ccc;
+  vertical-align: baseline;
+}
+#details .table .depCell{
+	background-color: #009999;
+}
+
+#billet .table th,#billet .table td{
+	border:1px solid #ccc;
+	text-align: center;
+}
+#billet .l1{
+	padding:0;
+}
+th.imgCel{
+	width: 58px;
+}
+#allT table th,#allT table td{
+	text-align: center;
+}
+.card-img{
+	width: 100%;
+	padding: 0;
+}
+
+#voiture .card{
+	width: 28rem;
+}
+#voiture .card{
+	text-align: center;
+	margin: 0 auto 0 auto;
+	width: 28rem;
+}
+
+.iconclass{
+	display: inline-block;
+}
+.nav-item.ident{
+	position: relative;
+	top: 10px;
+	right: -15px;
+}
+
+#navbarSupportedContent ul li:hover , #navbarSupportedContent ul li .dropdown-menu a:hover{
+	background-color: #696969;
+	font-weight: bold;
+}
+
+
+#footer {
+		
+		bottom: 0;
+		width: 100%;
+		height: 4rem;
+		color: #fff;
+		background-color:black;
+}
+.card-body{
+	padding:5px 0 0 0;
+}
+
+
+.footer-copyright {
+		margin-top: 15px;
+		text-transform: uppercase;
+		font-size: 14px;
+}
+@media only screen and (max-width: 414px) {
+  .container{
+      
+  	  min-height: 100vh;
+    }
+  .container .reserv{
+  	font-size: 10px;
+}
+.container .collapse .card .table th td{
+	font-size: 10px;
+}
+  #myDIV{
+  	display: none;
+  }
+  
+  .table td, .table th {
+		border:1px solid #ccc;
+		padding:0;
+		font-size:0.8rem;
+		text-align: center;
+	}
+	.table{
+		max-width: 100%;
+	}
+	.detform {
+		
+	}
+	.detform input[type="submit"]{
+		width: 100%;
+	}
+	.table tbody img {
+		margin:0 auto;
+	}
+	.card-img{
+		width: 50%;
+		padding: 40;
+	}
+}

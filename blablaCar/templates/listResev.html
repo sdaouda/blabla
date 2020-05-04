@@ -1,0 +1,43 @@
+{% extends "index.html" %}
+{% load static %}
+
+
+{% block content %}
+<div class="container">
+  <input type="text" id="myInput" class="form-control" onkeyup="" placeholder="Search for names.." title="Type in a name">
+  <br>
+  {% for res in resrv %}
+  <p>
+    <button class="btn btn-primary btn-lg btn-block reserv" type="button" data-toggle="collapse" data-target="#result_{{res.id}}" aria-expanded="false" aria-controls="result_{{res.id}}">
+            {{ res.created |date:"d M Y H:i" }} - {{res.contact_client}} / {{res.contact_client1}}
+    </button>
+  </p>
+  <div id="result_{{res.id}}" class="collapse">
+    <div class="card card-body" style="overflow-x:auto;">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Lieu Depart</th>
+            <th scope="col">Lieu Arrivee</th>
+            <th scope="col">Date/heure depart</th>
+            <th scope="col">Date/heure Arrivee</th>
+            <th scope="col">Nbr place</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{res.non_client}}</td>
+            <td>{{res.lieu_depart}}</td>
+            <td>{{res.lieu_arrivee}}</td>
+            <td>{{res.heure_depart}}</td>
+            <td>{{res.heure_arrivee}}</td>
+            <td>{{res.nbPlace_Reservee}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% endfor %}  
+ </div>
+{% endblock content %}    

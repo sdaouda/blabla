@@ -1,0 +1,57 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block content %}
+<div id = "allT" class="container">
+	{% if listT %}
+	{% for trajet in listT %}
+	<div class="card" style="margin-bottom:5px;">
+		<a href="#" class="d-block p-1 bg-primary text-white">{{ trajet.depart }} | {{ trajet.heure_depart|date:"d M Y" }} | {{ trajet.heure_depart|date:"H:m" }}</a>
+		<div class="row">
+			<!-- <div class="col-sm-1">
+				<img src="{% static "images/ligne.jpg" %}" class="card-img infosup" alt="...">
+			</div> -->
+	        <div class="col-sm-12" clearfix>
+				<table class="table table-hover">
+				<tbody>
+					<tr>
+					  <th rowspan="2" class="imgCel"><img src="{% static "images/ligne.jpg" %}" class="card-img infosup" alt="..."></th>
+					  <th scope="col">Place</th>
+					  <th scope="col">Prix</th>
+					  <th scope="col">Véhicule</th>
+					  <th scope="col">Plaque</th>
+					</tr>
+					<tr>
+					  <td>{{ trajet.vehicule.nbPlace }}</td>
+					  <td>{{ trajet.tarif }}</td>
+					  <td>{{ trajet.vehicule.marque }}</td>
+					  <td>{{ trajet.vehicule.numero_vehicule }}</td>
+					</tr>
+					
+				 </tbody>
+				</table>
+			</div>
+      	</div>
+	    <a href="#" class="d-block p-1 bg-primary text-white">{{ trajet.arrivee }} | {{ trajet.heure_arrivee|date:"d M Y" }} | {{ trajet.heure_arrivee|date:"H:m" }}</a>
+	    <div class="iconclass">
+	    <a class="navbar-brand" href="{% url "creertrajet" %}"><img src="{% static "images/icon_addlink.gif" %}" alt=""></a>
+	    <a class="navbar-brand" href="{{ trajet.get_absolute_url1 }}"><img src="{% static "images/icon_changelink.gif" %}" alt=""></a>
+	    <a class="navbar-brand" href="{{ trajet.get_absolute_url2 }}"><img src="{% static "images/icon_deletelink.gif" %}" alt=""></a>
+		</div>
+			<!-- <img src="{% static "images/icon_changelink.gif" %}" alt="">
+			<img src="{% static "images/icon_deletelink.gif" %}" alt=""> -->
+  	</div>
+  	{% endfor %}
+  	{%else%}
+  		<div class="card">
+		  <h5 class="card-header text-center text-uppercase">L'équipe BlaGrow</h5>
+		  <div class="card-body">
+		    <h5 class="card-title text-center">Merci de votre confiance</h5>
+		    <p class="card-text text-center">Pas de trajet disponible pour le moment</p>
+		    <p class="card-text text-center">Veuillez vous enregistrer ,et l'équipe vous informera de la première disponibilité sur votre trajet</p>
+		    <a href="#" class="btn btn-primary">Enregistrez-vous!</a>
+	      </div>
+		</div>
+  	{% endif %}
+</div>
+{% endblock content %}

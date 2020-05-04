@@ -1,0 +1,29 @@
+
+{% extends "index.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+  
+  <div class="container">
+      {% if form.errors %}
+          <p>Your username and password didn't match. Please try again.</p>
+      {% endif %}
+      <p><span><strong>Deja Inscrit?</strong></span></p>
+      <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        {% for field in form.visible_fields %}
+        <div class="form-group">
+            {{ field.label_tag }}
+            {% render_field field class="form-control" style="max-width:50%; padding:0;" %}
+        </div>
+        {% endfor %}
+        
+        <input type="submit" value="login" />
+        <input type="hidden" name="next" value="{{ next }}" />
+      </form>
+      <a href="{% url "register" %}"><span><strong>Pas encore inscrit? Cliquez svp.</strong></span></a>
+      {# Assumes you setup the password_reset view in your URLconf #}
+      <p class="reset"><a href="{% url 'password_reset' %}">Lost password?</a></p>
+  </div>
+
+{% endblock %}

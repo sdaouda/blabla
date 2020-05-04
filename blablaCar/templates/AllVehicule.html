@@ -1,0 +1,49 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block content %}
+<div id = "allV" class="container">
+	{% for car in listdesVehicule %}
+	<div class="card" style="margin-bottom:5px;">
+		<a href="#" class="d-block p-1 bg-primary text-white">{{ car.numero_vehicule }}</a>
+		<div class="row">
+	        <div class="col-sm-6" clearfix>
+    			<a href="#details" data-toggle="popover" title="Popover Header" data-content="{{ trajetId.vehicule.marque }}"> <img src="{% if car.image_vehicule %}{{ car.image_vehicule.url }}{% else %}{% static "images/no_image.jpg" %}{% endif %}" alt="No image" class="img-thumbnail"></a>
+    			<p><a href="">{{ car.marque }}</a></p>
+	        </div>
+
+  			<div class="col-sm-6" clearfix>
+  				<ul class="list-group">
+				  <li class="list-group-item"><strong>Chauffeur :</strong>{{car.nom_conducteur}}</li>
+				  <li class="list-group-item"><strong>Numero1 :</strong>{{car.numero_conducteur1}}</li>
+				  <li class="list-group-item"><strong>Numero2 :</strong>{{car.numero_conducteur2}}</li>
+				</ul>
+				<p>
+
+					<button class="btn btn-primary btn-lg btn-block" type="button" data-toggle="collapse" data-target="#col_{{car.id}}" aria-expanded="false" aria-controls="col_{{car.id}}">
+    				Trajets
+  					</button>
+				</p>
+				<div class="collapse" id="col_{{car.id}}">
+				  <div class="card card-body">
+				  	{% for trajet in listdestrajets %}
+				  		{% if trajet.id == car.id %}
+				  		{{trajet}}
+				  		{% endif %}
+				    {% endfor %}
+				  	
+				  </div>
+				</div>
+			</div>
+      	</div>
+	    <div class="iconclass">
+	    <a class="navbar-brand" href="{% url "vehicule" %}"><img src="{% static "images/icon_addlink.gif" %}" alt=""></a>
+	    <a class="navbar-brand" href="{{ car.get_absolute_url }}"><img src="{% static "images/icon_changelink.gif" %}" alt=""></a>
+	    <a class="navbar-brand" href="{{ car.get_absolute_url2 }}"><img src="{% static "images/icon_deletelink.gif" %}" alt=""></a>
+		</div>
+			<!-- <img src="{% static "images/icon_changelink.gif" %}" alt="">
+			<img src="{% static "images/icon_deletelink.gif" %}" alt=""> -->
+  	</div>
+  	{% endfor %}
+</div>
+{% endblock content %}

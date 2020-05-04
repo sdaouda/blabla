@@ -1,0 +1,239 @@
+
+{% extends "index.html" %}
+{% load static %}
+
+{% block content %}
+
+	<div class="container">
+        <div class="col-md-6 plat">
+			<h2>Top 10 Location</h2>
+			<div id="myCarousel1" class="carousel slide" data-ride="carousel" data-interval="2000" data-pause="hover">
+				<!-- Indicators -->
+				<ol class="carousel-indicators">
+					<li data-target="#myCarousel1" data-slide-to="0" class="active"></li>
+					<li data-target="#myCarousel1" data-slide-to="1"></li>
+					<li data-target="#myCarousel1" data-slide-to="2"></li>
+					<li data-target="#myCarousel1" data-slide-to="4"></li>
+					<li data-target="#myCarousel1" data-slide-to="5"></li>
+					<li data-target="#myCarousel1" data-slide-to="6"></li>
+				</ol>
+				<!-- Wrapper for slides -->	
+				<div class="carousel-inner" role="listbox">
+					<div class="item active">
+						<div class="serv-w3ls1">
+							<img src="{% static "images/v3.jpg" %}" alt="w3ls" class="img-responsive">
+<!-- 							<a href="#"><img src="{{.image.url }}" alt="w3ls" class="img-responsive"></a> -->
+						    <span class="four">40,000cfa</span>
+							<div class="rent-bottom">
+								<h4>Nerima Sanam St, Tokyo,TM 3020</h4>
+								<h5>For Rent</h5>
+<!-- 								<p>Etiam elit felis, porta ut massa in, consectetur<p> -->
+								<div class="rent-icons">
+								  <h6 class="area">Area: 450m1</h6>
+								  	<div class="r-icons">
+									   <ul class="icons-right">
+											<li><i class="fa fa-bed" aria-hidden="true"></i> 3</li>
+											<li><i class="fa fa-wheelchair-alt" aria-hidden="true"></i> 2</li>
+										</ul>
+								  	</div>
+								  <div class="clearfix"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% for product in Lproducts %}
+					<div class="item">
+						<div class="serv-w3ls1">
+<!-- 							<img src="{% static "images/v3.jpg" %}" alt="w3ls" class="img-responsive"> -->
+							<a href="#"><img src="{{ product.image.url }}" alt="w3ls" class="img-responsive"></a>
+						    <span class="four">{{ product.price }}cfa</span>
+							<div class="rent-bottom">
+								<h4>{{ product.name }}</h4>
+								<h5>{{ product.action_type }}</h5>
+<!-- 								<p>{{ product.description }}<p> -->
+								<div class="rent-icons">
+								  <h6 class="area">Area: 450m1</h6>
+								  	<div class="r-icons">
+									   <ul class="icons-right">
+											<li><i class="fa fa-bed" aria-hidden="true"></i> 3</li>
+											<li><i class="fa fa-wheelchair-alt" aria-hidden="true"></i> 2</li>
+										</ul>
+								  	</div>
+								  <div class="clearfix"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>	
+		</div>	
+		<div class="col-md-6 plat">
+			<h2>Top 10 Vente</h2>
+			<div id="myCarousel1" class="carousel slide" data-ride="carousel" data-interval="2000" data-pause="hover">
+				<!-- Indicators -->
+				<ol class="carousel-indicators">
+					<li data-target="#myCarousel1" data-slide-to="0" class="active"></li>
+					<li data-target="#myCarousel1" data-slide-to="1"></li>
+					<li data-target="#myCarousel1" data-slide-to="2"></li>
+					<li data-target="#myCarousel1" data-slide-to="4"></li>
+					<li data-target="#myCarousel1" data-slide-to="5"></li>
+					<li data-target="#myCarousel1" data-slide-to="6"></li>
+				</ol>
+				<!-- Wrapper for slides -->	
+				<div class="carousel-inner" role="listbox">
+					<div class="item active">
+						<div class="serv-w3ls1">
+							<img src="{% static "images/v1.jpg" %}" alt="w3ls" class="img-responsive">
+<!-- 							<a href="#"><img src="{{.image.url }}" alt="w3ls" class="img-responsive"></a> -->
+						    <span class="four">40,000cfa</span>
+							<div class="rent-bottom">
+								<h4>Nerima Sanam St, Tokyo,TM 3020</h4>
+								<h5>For Rent</h5>
+<!-- 								<p>Etiam elit felis, porta ut massa in, consectetur<p> -->
+								<div class="rent-icons">
+								  <h6 class="area">Area: 450m1</h6>
+								  	<div class="r-icons">
+									   <ul class="icons-right">
+											<li><i class="fa fa-bed" aria-hidden="true"></i> 3</li>
+											<li><i class="fa fa-wheelchair-alt" aria-hidden="true"></i> 2</li>
+										</ul>
+								  	</div>
+								  <div class="clearfix"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% for product in Vproducts %}
+					<div class="item">
+						<div class="serv-w3ls1">
+<!-- 							<img src="{% static "images/v3.jpg" %}" alt="w3ls" class="img-responsive"> -->
+							<a href="#"><img src="{{ product.image.url }}" alt="w3ls" class="img-responsive"></a>
+						    <span class="four">{{ product.price }}cfa</span>
+							<div class="rent-bottom">
+								<h4>{{ product.name }}</h4>
+								<h5>{{ product.action_type }}</h5>
+<!-- 								<p>{{ product.description }}<p> -->
+								<div class="rent-icons">
+								  <h6 class="area">Area: 450m1</h6>
+								  	<div class="r-icons">
+									   <ul class="icons-right">
+											<li><i class="fa fa-bed" aria-hidden="true"></i> 3</li>
+											<li><i class="fa fa-wheelchair-alt" aria-hidden="true"></i> 2</li>
+										</ul>
+								  	</div>
+								  <div class="clearfix"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>	
+		</div>
+		<div class="clearfix"> </div>	
+</div>		
+<!--//price-section--> 
+{% endblock content %}
+{% block content1 %}
+
+<div class="container">
+<div id = "lgallery" class="agile_gallery_grids w3-agile">
+	<h3 class="tittle"><span>Gallerie</span> Location</h3>
+	<ul class="clearfix demo">
+		{% for product in Lproducts %}
+		<li>
+			<div class="gallery-grid1">
+				<a href="{{ product.get_absolute_url }}"><img src="{{ product.image.url }}" alt=" " class="img-responsive" /></a>
+				<div class="p-mask">
+					<a href="{{ product.get_absolute_url }}"><h4>{{ product.action_type }} <span>{{ product.category }}</span></h4>
+					<p>{{ product.localite }}</p>
+					<p>{{ product.price }} /mois</p></a>				
+				</div>
+			</div>
+		</li>
+		{% endfor %}		
+	</ul>
+</div>
+<hr style="border: 10px solid #7ac143;">
+</div>
+
+{% endblock content1 %}
+{% block content2 %}
+
+<div class="container">
+<div id = "vgallery" class="agile_gallery_grids w3-agile">
+	<h3 class="tittle">Gallerie<span> Vente</span></h3>
+	<ul class="clearfix demo">
+		{% for product in Vproducts %}
+		<li>
+			<div class="gallery-grid1">
+				<a href="{{ product.get_absolute_url }}"><img src="{{ product.image.url }}" alt=" " class="img-responsive" /></a>
+				<div class="p-mask">
+					<a href="{{ product.get_absolute_url }}"><h4>{{ product.action_type }} <span>{{ product.category }}</span></h4>
+					<p>{{ product.localite }}</p>
+					<p>{{ product.price }} cfa</p></a>		
+				</div>
+			</div>
+		</li>
+		{% endfor %}		
+	</ul>
+</div>
+<hr style="border: 10px solid #7ac143;">
+</div>
+
+
+<!-- </div> -->
+{% endblock content2 %}
+{% block content3 %}
+<!--/featured-projects-->
+<!-- <div class="gallery agile" id="gallery"> -->
+
+  	<div class="container">
+		<h3 class="tittle">Nos <span>Services</span></h3>
+		<div class="content-bottom-in">
+			<ul id="flexiselDemo1">
+				{% for product in products %}
+				<li><div class="project-fur">
+						<a href="#" data-toggle="modal" data-target="#{{ product.id }}" ><img class="img-responsive" src="{{ product.image.url }}" alt="" /></a>
+							<div class="fur">
+								<div class="fur1">
+                                    <span class="fur-money">$2.44 0 - $5.280 </span>
+                                  	<h6 class="fur-name"><a href="#" data-toggle="modal" data-target="#myModal1">Contrary to popular</a></h6>
+                                   	<span>{{ product.name }}</span>
+                       			</div>
+	                            <div class="fur2">
+	                               	<span>2 BHK</span>
+	                            </div>
+							</div>	
+							<span class="five">40,000$</span>
+					</div>
+				</li>
+				{% empty %}
+					<li>0 correspondance</li>
+				{% endfor %}			
+			</ul>
+		</div>
+{% for product in products %}
+<div class="modal ab fade" id="{{ product.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog sign" role="document">
+		<div class="modal-content about">
+			<div class="modal-header one">
+				<button type="button" class="close sg" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>	
+					<div class="discount one">
+						<h3>A Few Words about Us</h3>	
+					</div>							
+			</div>
+			<div class="modal-body about">
+					<img src="{{ product.image.url }}" alt="w3ls" class="img-responsive">
+				<h4>{{ product.name }}</h4>
+				<p>{{ product.description }}.</p>
+				
+			</div>		
+		</div>
+	</div>
+</div>
+{% endfor %}
+</div>
+<!--//featured-projects-->
+{% endblock content3 %}

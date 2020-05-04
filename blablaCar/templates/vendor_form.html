@@ -1,0 +1,58 @@
+{% extends "shop/index.html" %}
+{% load static %}
+
+{% block content1 %}
+<div class="container">
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class = "row">
+        <div class="col-25">{{ form.name.label_tag }}</div>
+        <div class="col-75">{{ form.name }}</div>
+    </div>
+
+    <div class = "row">
+        <div class="col-25">{{ form.email.label_tag }}</div>
+        <div class="col-75">{{ form.email }}</div>
+    </div>
+
+    <div class = "row">
+        <div class="col-25">{{ form.phone1.label_tag }}</div>
+        <div class="col-75">{{ form.phone1 }}</div>
+    </div>
+
+    <div class = "row">
+        <div class="col-25">{{ form.phone2.label_tag }}</div>
+        <div class="col-75">{{ form.phone2 }}</div>
+    </div>
+
+    <div class = "row">
+        <div class="col-25">{{ form.phone3.label_tag }}</div>
+        <div class="col-75">{{ form.phone3 }}</div>
+    </div>
+
+    <div class = "row">
+        <div class="col-25">{{ form.address.label_tag }}</div>
+        <div class="col-75">{{ form.address }}</div>
+    </div>
+
+    <div class = "row">
+        <div class="col-25">{{ form.ville.label_tag }}</div>
+        <div class="col-75">{{ form.ville }}</div>
+    </div>
+
+    <div class = "row">
+        <div class="col-25">{{ form.quartier.label_tag }}</div>
+        <div class="col-75">{{ form.quartier }}</div>
+    </div>
+
+    <div class = "row">
+        <div class="col-25">{{ form.localization.label_tag }}</div>
+        <div class="col-75">{{ form.localization }}</div>
+    </div>
+    <div class="row">
+        <input type="submit" value="Submit">
+    </div>
+  </form>
+</div>
+{% endblock content1 %}

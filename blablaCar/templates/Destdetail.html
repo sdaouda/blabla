@@ -1,0 +1,159 @@
+{% extends "index.html" %}
+{% load static %}
+Alternative Voyage - {% block title %}Details Trajet{% endblock title %}
+{% block mainSectionId %}details{% endblock mainSectionId%}
+{% block headerContent%}
+<div class="jumbotron text-center">
+  <div id="demo" class="carousel slide" data-ride="carousel">
+
+    <!-- Indicators -->
+    <ul class="carousel-indicators">
+    <li data-target="#demo" data-slide-to="0" class="active"></li>
+    <li data-target="#demo" data-slide-to="1"></li>
+    <li data-target="#demo" data-slide-to="2"></li>
+    </ul>
+    
+    <!-- The slideshow -->
+    <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static "images/banner05.jpg" %}" alt="Los Angeles" width="550" height="250">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static "images/banner05.jpg" %}" alt="Chicago" width="550" height="250">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static "images/banner05.jpg" %}" alt="New York" width="550" height="250">
+    </div>
+    </div>
+    
+    <!-- Left and right controls -->
+    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" href="#demo" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+    </a>
+  </div>
+</div>
+{%endblock headerContent%}
+{% block content %}
+<div class="row">
+  <div class="col-sm-4">
+    <a href="#details" data-toggle="popover" title="Popover Header" data-content="{{ trajetId.vehicule.marque }}"> <img src={{trajetId.vehicule.image_vehicule.url}} alt="No image" class="img-thumbnail"></a>
+  </div>
+  <div class="col-sm-8">
+    <section id="secID1">
+    <table class="table table-hover">
+      <caption>Niger BlablaCar</caption>
+      <tbody>
+      <tr>
+        <th class="depCell" rowspan="2">Depart</th>
+        <th class="depCell" scope="rowgroup" rowspan="2">{{ trajetId.depart }}</th>
+        <td scope="row">Date</td>
+        <td>{{ trajetId.heure_depart|date:"d M Y" }}</td>
+      </tr>
+      <tr>
+        <td scope="row">Heure</td>
+        <td>{{ trajetId.heure_depart|date:"H:m" }}</td>
+      </tr>
+      <tr>
+        <th class="arrvCell" rowspan="2">Arrivee</th>
+        <th class="arrvCell" scope="rowgroup" rowspan="2">{{ trajetId.arrivee }}</th>
+        <td scope="row">Date</td>
+        <td>{{ trajetId.heure_arrivee|date:"d M Y" }}</td>
+      </tr>
+      <tr>
+        <td scope="row">Heure</td>
+        <td>{{ trajetId.heure_arrivee|date:"H:m" }}</td>
+      </tr>
+      <tr>
+        <th>Véhicule</th>
+        <td scope="row">Plaque</td>
+        <td colspan="2">{{ trajetId.vehicule.numero_vehicule }}</td>
+      </tr>
+      <tr>
+        <td colspan="4"><span style="font-weight: bold;">Commentaire: </span>{{trajetId.vehicule.nbPlace}} --- {{place}} -- {{trajetId.available}}</td>
+      </tr>
+      </tbody>
+    </table>
+    </section>
+    <div id="secID2">
+      <a href="#secID2"><button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseE" aria-expanded="false" aria-controls="collapseExample" style="width: 100%;">Procedez a une Réservation , {{ user.get_username }} - {{trajetId.created}}</button></a>
+      <div class="collapse" id="collapseE">
+        <div class="card card-body">
+          <div class="container-fluid">
+            <form action="{% url "clientResv" %}" method="get" accept-charset="utf-8">
+
+              <div class="form-group row" style="margin: 0;">
+                <input type="hidden" class="form-control" id="id_idTrajet" name="idTrajet" value="{{ trajetId.id}}" placeholder="id">
+              </div>
+
+              <div class="form-group row" style="margin: 0;">
+                <input type="hidden" class="form-control" id="id_lieu_depart" name="lieu_depart" value="{{ trajetId.depart}}" placeholder="depart">
+              </div>
+
+              <div class="form-group row" style="margin: 0;">
+                <input type="hidden" class="form-control" id="id_lieu_arrivee" name="lieu_arrivee" value="{{ trajetId.arrivee}}" placeholder="destination">
+              </div>
+
+              <div class="form-group row" style="margin: 0;">
+                <input type="hidden" class="form-control" id="id_heure_depart" name="heure_depart" value="{{ trajetId.heure_depart|date:"d M Y H:m" }}" placeholder="heure depart">
+              </div>
+
+              <div class="form-group row" style="margin: 0;">
+                <input type="hidden" class="form-control" id="id_heure_arrivee" name="heure_arrivee" value="{{ trajetId.heure_arrivee|date:"d M Y H:m" }}" placeholder="heure arrivee">
+              </div>
+
+              <div class="form-group row">
+                <label for="id_pseudo_client">Pseudo</label>
+                <input type="text" class="form-control" id="id_pseudo_client" name="pseudo_client" value="{{ user.get_username }}">
+              </div>
+
+              <div class="form-group row">
+                <label for="id_non_client">Nom et Prénom svp..</label>
+                <input type="text" class="form-control" id="id_non_client" name="non_client" placeholder="Nom client">
+              </div>
+
+              <div class="form-group row">
+                <label for="id_contact_client">Contact1 (Numéro Cellulaire)</label>
+                <input type="text" class="form-control" id="id_contact_client" name="contact_client" placeholder="Numéro client 1" required>
+              </div>
+              <div class="form-group row">
+                <label for="id_contact_client1">Contact2 (Numéro Cellulaire)</label>
+                <input type="text" class="form-control" id="id_contact_client1" name="contact_client1" placeholder="Numéro client 2">
+              </div>
+              
+              <fieldset class="form-group" style="margin: 0;">
+                <div class="row">
+                  <!-- <legend class="col-form-label col-sm-4 pt-0">Nombre de Place</legend> -->
+
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label for="id_nbPlace_Reservee">Nombre de Place</label>
+                      <select class="form-control" id="id_nbPlace_Reservee" name="nbPlace_Reservee">
+                        <option value=0 selected>0</option>
+                        {% for plc in place %}
+                          <option value={{plc}}>{{plc}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+              </fieldset>
+              <div class="form-group row">
+                <div class="col-sm-10">
+                  <input type="hidden" name='idField' value={{trajetId.id}}>
+                  <button type="submit" class="btn btn-primary" style="width: 40%;">OK</button>
+                </div>
+              </div>
+            </form>
+            
+          </div>
+        </div>
+      </div>
+
+    </div>  
+</div>
+
+{% endblock content %}

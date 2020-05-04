@@ -1,0 +1,24 @@
+{% extends "index.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<div class="container">
+	<div class="userform">
+		<span><strong>Deja Inscrit?</strong></span>
+		<form method="post">
+			{% csrf_token %}
+			{% for field in login_form.visible_fields %}
+				<div class="form-group">
+	  				{{ field.label_tag }}
+	  				{% render_field field class="form-control" style="max-width:50%; padding:0;" %}
+	  			</div>
+	  		{% endfor %}
+			<input type='submit' name='submit' value='sign_in'/>
+			<input type='hidden' value={{next}}/>
+		</form>
+	</div>
+	
+</div>
+{% endblock content %}

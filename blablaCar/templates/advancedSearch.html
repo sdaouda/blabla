@@ -1,0 +1,37 @@
+{% extends "shop/index.html" %}
+{% load static %}
+{% block content %}
+ <div class="container">
+    {{douche_ext}}<br>
+    {{aucun}}<br>
+    {{depen_ext}}<br>
+    {{clim}}<br>
+    {{chauff_eau}}<br>
+    {{gason_jardin}}
+<form action="#">
+
+    <p class = "prod">{{ prodform.category.label_tag }}</p>
+    <p class = "prod">{{ prodform.category }}</p>
+    
+    <p class = "prod">{{ prodform.dimmension.label_tag }}</p>
+    <p class = "prod">{{ prodform.dimmension }}</p>
+    
+    <p class = "prod">{{ prodform.localite.label_tag }}</p>
+    <p class = "prod">{{ prodform.localite }}</p>
+    
+    <p class = "prod">{{ prodform.description.label_tag }}</p>
+    <p class = "prod">{{ prodform.description }}</p>
+    
+    <p class = "prod">{{ prodform.price.label_tag }}</p>
+    <p class = "prod">{{ prodform.price }}</p>
+    
+    <p class = "prod">{{ prodform.nbChambre.label_tag }}</p>
+    <p class = "prod">{{ prodform.nbChambre }}</p>
+    
+    <p class = "prod">{{ prodform.nbDouche.label_tag }}</p>
+    <p class = "prod">{{ prodform.nbDouche }}</p>
+    <input type="submit" value="Submit">
+
+</form>
+</div>
+{% endblock content %} 

@@ -1,0 +1,77 @@
+{% extends "index.html" %}
+{% load static %}
+Alternative Voyage - {% block title %}Details Trajet{% endblock title %}
+{% block mainSectionId %}billet{% endblock mainSectionId%}
+{% block headerContent%}
+<div class="jumbotron text-center">
+  <div id="demo" class="carousel slide" data-ride="carousel">
+
+    <!-- Indicators -->
+    <ul class="carousel-indicators">
+    <li data-target="#demo" data-slide-to="0" class="active"></li>
+    <li data-target="#demo" data-slide-to="1"></li>
+    <li data-target="#demo" data-slide-to="2"></li>
+    </ul>
+    
+    <!-- The slideshow -->
+    <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static "images/banner05.jpg" %}" alt="Los Angeles" width="550" height="250">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static "images/banner05.jpg" %}" alt="Chicago" width="550" height="250">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static "images/banner05.jpg" %}" alt="New York" width="550" height="250">
+    </div>
+    </div>
+    
+    <!-- Left and right controls -->
+    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" href="#demo" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+    </a>
+  </div>
+</div>
+{%endblock headerContent%}
+{% block content %}
+<div class="card mb-3" style="max-width: 38rem;">
+  <div class="card-header" style ="text-align: center;font-weight: bold;">Vous aviez reserver {{plcPrise}} Place{{ plcPrise|pluralize }} sur {{trajetData.arrivee}}</div>
+  <div class="card-body">
+  	<p class="font-weight-bold text-center" style="background-color: #007bff; ">Détails Voiture et conducteur</p>
+  	<table class="table">
+	  <thead>
+		<tr>
+		  <th scope="col" colspan="2">Chauffeur</th>
+		  <th scope="col" colspan="2">Véhicule</th>
+		</tr>
+		<tr>
+		  <th scope="col">Nom</th>
+		  <th scope="col">Numéro</th>
+		  <th scope="col">plaque</th>
+		  <th scope="col">Nombre de place(s)</th>
+		</tr>
+	  </thead>
+	  <tbody>
+		<tr>
+		  <td>{{CarData.nom_conducteur}}</td>
+		  <td>{{CarData.numero_conducteur1}}-{{CarData.numero_conducteur2}}</td>
+		  <td>{{CarData.numero_vehicule}}</td>
+		  <td>{{CarData.nbPlace}}</td>
+		</tr>
+	  </tbody>
+	</table>
+    <p class="card-text">{{trajetData.commentaire}}</p>
+  </div>
+
+  <ul class="list-group">
+    <li class="list-group-item active l1">Détails Horaires</li>
+    <li class="list-group-item">Départ | {{trajetData.depart}}</li>
+    <li class="list-group-item">Heure | {{trajetData.heure_depart|date:"d M Y H:m"}}</li>
+    <li class="list-group-item">Arrivée | {{trajetData.arrivee}}</li>
+    <li class="list-group-item">Heure | {{trajetData.heure_arrivee|date:"d M Y H:m"}}</li>
+  </ul>
+</div>
+{% endblock content%}

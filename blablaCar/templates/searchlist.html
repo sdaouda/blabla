@@ -1,0 +1,14 @@
+
+<ul>
+	{% for dest in dest_trajects_queryset_list %}
+	<li>
+		<div>
+			<a href="#"/><p>{{ dest.depart }}</p></a>: {{ dest.heure_depart }}
+			<a href="#"/><p>{{ dest.arrivee }}</p></a>: {{ dest.heure_arrivee }}
+			<a href="#"/><p>{{ dest.tarif }}</p></a>
+		</div>	
+	</li>
+	{% empty %}
+	<li>0 correspondance</li>
+	{% endfor %}	
+</ul>

@@ -1,0 +1,20 @@
+{% extends "index.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form.visible_fields %}
+          {{ field.label_tag }}
+          {% render_field field class="form-control" style="max-width:100%; padding:0;" %}
+        {% endfor %}
+        <button type="submit">OK</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

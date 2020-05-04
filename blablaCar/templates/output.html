@@ -1,0 +1,18 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <form method="post" action=".">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {{var}}
+        <button type="submit">OK</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

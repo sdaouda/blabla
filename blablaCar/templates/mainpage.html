@@ -1,0 +1,74 @@
+
+
+{% extends "index.html" %}
+{% load static %}
+
+{% block headerContent%}
+<div class="jumbotron text-center">
+	<div id="demo" class="carousel slide" data-ride="carousel">
+
+	  <!-- Indicators -->
+	  <ul class="carousel-indicators">
+		<li data-target="#demo" data-slide-to="0" class="active"></li>
+		<li data-target="#demo" data-slide-to="1"></li>
+		<li data-target="#demo" data-slide-to="2"></li>
+	  </ul>
+	  
+	  <!-- The slideshow -->
+	  <div class="carousel-inner">
+		<div class="carousel-item active">
+		  <img src="{% static "images/Untitled45.jpg" %}" alt="Los Angeles" width="550" height="250">
+		</div>
+		<div class="carousel-item">
+		  <img src="{% static "images/Untitled45.jpg" %}" alt="Chicago" width="550" height="250">
+		</div>
+		<div class="carousel-item">
+		  <img src="{% static "images/Untitled46.jpg" %}" alt="New York" width="550" height="250">
+		</div>
+	  </div>
+	  
+	  <!-- Left and right controls -->
+	  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+		<span class="carousel-control-prev-icon"></span>
+	  </a>
+	  <a class="carousel-control-next" href="#demo" data-slide="next">
+		<span class="carousel-control-next-icon"></span>
+	  </a>
+	</div>
+</div>
+{%endblock headerContent%}
+
+{% block content %}
+<div id="myDIV" class="card" style="position: fixed; z-index: 1000;bottom:10px;right:50px;max-width: 30%;background-color: purple;opacity: 0.5;color: white;text-align: justify; padding: 6px;">
+  <h5 class="card-header" style="text-align: center;">Utilisation des cookies</h5>
+  <div class="card-body">
+    
+    <p class="card-text">ALTERNATIVE VOYAGE (« BlaGroWCar », « nous », « nos » ou « notre ») utilise les cookies afin de vous proposer un service web amélioré et davantage personnalisé. En poursuivant votre visite sur notre plateforme, vous acceptez l'utilisation de Cookies. Si vous souhaitez en savoir davantage sur les cookies et la manière dont vous pouvez les gérer, veuillez consulter notre <a href="{% url "cookiespolicy" %}">politique</a> relative aux cookies.</p>
+    <button class="btn btn-primary" onclick="myFunction()" style="width: 100%;">OK</button>
+    
+</div>
+</div>
+<div class="cookSmall"><a href="{% url "cookiespolicy" %}">politique Cookies</a></div>
+<section class="main">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="container-fluid mt-3 dest">
+			  <h2 style="color: gray;">Votre Destination s'il vous plait...</h2>
+			  <p style="text-shadow: 2px 2px 4px #000000;color: white;">et nous vous devoilons toutes les occasions vers votre destination </p>
+			  <form action="{% url "Dest_search_list" %}" method="get" accept-charset="utf-8">
+				<select name="destination" class="custom-select mb-3">
+				  	<option selected value="all">Toutes les Destinations</option>
+				  	{% for list in dlist %}
+					<option value={{list}}>{{list}}</option>
+					{% endfor %}
+				</select>
+				<button type="submit" class="btn btn-primary btn-lg btn-block">Recherche</button>
+			  </form>
+			  {{d1}}
+			  {{d}}
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endblock content%}

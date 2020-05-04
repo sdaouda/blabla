@@ -1,0 +1,30 @@
+{% extends "index.html" %}
+{% load static %}
+{% block mainSectionId %}voiture{% endblock mainSectionId%}
+{% block content %}
+	
+		<div class="card">
+		  	<img src="{{voiture_queryset.image_vehicule.url}}" class="card-img-top" alt="...">
+		  	<div id = "myid" class="card-body">
+			    <h4 class="card-title">{{voiture_queryset}}</h4>
+			    <h5 class="card-title">{{voiture_queryset.marque}}</h5>
+			    <ul class="list-group list-group-flush">
+				    <li class="list-group-item">Chauffeur: {{voiture_queryset.nom_conducteur}}</li>
+				    <li class="list-group-item">Cel1: {{voiture_queryset.numero_conducteur1}}</li>
+				   	<li class="list-group-item">Cel2 : {{voiture_queryset.numero_conducteur2}}</li>
+				    <li class="list-group-item">Place : {{voiture_queryset.nbPlace}}</li>
+				</ul>
+			    <a href="{% url "listvehicule" %}" class="btn btn-primary btn-lg btn-block">OK</a>
+			    <a href="#myid" class="btn btn-primary btn-lg btn-block" data-toggle="popover" title="Trajets associée" data-placement="right" data-content="{% for trajet in trajet_voiture %} {{trajet}}{% endfor %}">Affichez les Trajets</a>
+		 	</div>
+		 	<div class="iconclass">
+		    <a class="navbar-brand" href="{% url "vehicule" %}"><img src="{% static "images/icon_addlink.gif" %}" alt=""></a>
+		    <a class="navbar-brand" href="{{ voiture_queryset.get_absolute_url }}"><img src="{% static "images/icon_changelink.gif" %}" alt=""></a>
+		    <a class="navbar-brand" href="{{ voiture_queryset.get_absolute_url2 }}"><img src="{% static "images/icon_deletelink.gif" %}" alt=""></a>
+			</div>
+			
+		</div>
+			<!-- <img src="{% static "images/icon_changelink.gif" %}" alt="">
+			<img src="{% static "images/icon_deletelink.gif" %}" alt=""> -->
+  
+{% endblock content %}
