@@ -90,6 +90,9 @@ class Reservation(models.Model):
     def __str__(self):
         return "%s--(%s)" % (self.non_client,self.contact_client1)
 
+    class Meta:
+        permissions = [('can_view_all_trajet_booked', 'Can view all trajet booked')]
+
 class NousContactez(models.Model):
     nom = models.CharField(max_length=30,blank=True, null=True)
     addresse = models.CharField(max_length=30,blank=True, null=True)

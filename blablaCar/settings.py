@@ -20,18 +20,18 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = '97vqo*t)m)h_3pjjw4(=9m&kc*-_a*30icly_ifg$80jeg_cbz'
+SECRET_KEY = '97vqo*t)m)h_3pjjw4(=9m&kc*-_a*30icly_ifg$80jeg_cbz'
 
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '97vqo*t)m)h_3pjjw4(=9m&kc*-_a*30icly_ifg$80jeg_cbz')
+#SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '97vqo*t)m)h_3pjjw4(=9m&kc*-_a*30icly_ifg$80jeg_cbz')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
 #export DJANGO_DEBUG='False'
-#DEBUG = True
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+DEBUG = True
+#DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 #ALLOWED_HOSTS = ['immoniger.herokuapp.com']
-ALLOWED_HOSTS = ['blablacarniger.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -54,7 +54,6 @@ INSTALLED_APPS = (
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -122,21 +121,5 @@ LOGOUT_REDIRECT_URL = '/'
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-# The absolute path to the directory where collectstatic will collect static files for deployment.
-STATIC_ROOT = os.path.join(BASE_DIR, '/blablaCar/static/')
-
-# Heroku: Update database configuration from $DATABASE_URL.
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
-
-##os.makedirs(STATIC_TMP, exist_ok=True)
-##os.makedirs(STATIC_ROOT, exist_ok=True)
-##
-### Extra places for collectstatic to find static files.
-##STATICFILES_DIRS = (
-##    os.path.join(BASE_DIR, 'static'),
-##)
+#CART_SESSION_ID = 'cart'

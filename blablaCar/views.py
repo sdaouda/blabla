@@ -22,9 +22,8 @@ from django.contrib.auth.decorators import login_required,permission_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.db.models import Q
 #from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User, Group, Permission
 from blablaCar.mixins import GroupRequiredMixin
-
 
 def is_in_groups(user,group):
     return user.groups.filter(name = group).exists()
@@ -66,20 +65,7 @@ class TrajetUpdate(UpdateView):
             )
          return form
 
-@login_required
-#@group_required('Staff')
-def vehiculeCreate(request):
-    if request.method == 'POST':
-        form = VehiculeForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
-        else:
-            form = VehiculeForm()
-            return render(request,'outputVehicule.html',{'form':form,})
-    else:
-        form = VehiculeForm()
-        return render(request,'outputVehicule.html',{'form':form,})
+
 
 def TrouverVehi(request):
     voiture = Vehicule.objects.all()
@@ -96,13 +82,13 @@ def DisplayVehi(request):
 
 class VehiculeCreate(CreateView):
     model = Vehicule
-    fields = ['nom_conducteur','numero_conducteur1','numero_conducteur2','numero_vehicule',
-                'marque','image_vehicule',]
+    fields = ['nom_conducteur','numero_conducteur1','numero_conducteur2','numero_vehicule','nbPlace',
+    'marque','image_vehicule',]
     success_url = '/listvehicule/'
 
 class VehiculeUpdate(UpdateView):
     model = Vehicule
-    fields = ['nom_conducteur','numero_conducteur1','numero_conducteur2','numero_vehicule',
+    fields = ['nom_conducteur','numero_conducteur1','numero_conducteur2','numero_vehicule','nbPlace',
                 'marque','image_vehicule',]            
     #template_name_suffix = '_update_form'
     template_name = 'vehicule_update_form.html'
@@ -318,14 +304,17 @@ def registration(request):
         username = contact_form.cleaned_data.get('username')
         raw_password = contact_form.cleaned_data.get('password1')
         user = authenticate(username=username, password=raw_password)
-        group = Group.objects.get(name='Client')
-        user.groups.add(group)
+        # group = Group.objects.get(name='Client')
+        # user.groups.add(group)
+        # permission = Permission.objects.get(name='Can view all trajet booked')
+        # user.user_permissions.add(permission)
         login(request, user)
-        if user.groups.filter(name = 'Client').exists():
-            return redirect('/')
-        else:
-            contact_form = SignUpForm()
-            return render(request, 'registrationForm.html', {'contact_form': contact_form})
+        return redirect('/')
+        # if user.groups.filter(name = 'Client').exists():
+        #     return redirect('/')
+        # else:
+        #     contact_form = SignUpForm()
+        #     return render(request, 'registrationForm.html', {'contact_form': contact_form})
     else:
         contact_form = SignUpForm()
         return render(request, 'registrationForm.html', {'contact_form': contact_form})

@@ -1,7 +1,7 @@
 {% extends "index.html" %}
 {% load static %}
 
-{% block title %} Contact{% endblock title %}
+{% block title %}Contact{% endblock title %}
 {% block bodyId %}Contact{% endblock %}
 {% block headerContent %}
 <div class="jumbotron text-center">
@@ -11,19 +11,15 @@
     <ul class="carousel-indicators">
     <li data-target="#demo" data-slide-to="0" class="active"></li>
     <li data-target="#demo" data-slide-to="1"></li>
-    <li data-target="#demo" data-slide-to="2"></li>
     </ul>
     
     <!-- The slideshow -->
     <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="{% static "images/banner05.jpg" %}" alt="Los Angeles" width="550" height="250">
+      <img src="{% static "images/Untitled45.jpg" %}" alt="Los Angeles" width="550" height="250">
     </div>
     <div class="carousel-item">
-      <img src="{% static "images/banner05.jpg" %}" alt="Chicago" width="550" height="250">
-    </div>
-    <div class="carousel-item">
-      <img src="{% static "images/banner05.jpg" %}" alt="New York" width="550" height="250">
+      <img src="{% static "images/Untitled46.jpg" %}" alt="Chicago" width="550" height="250">
     </div>
     </div>
     
@@ -39,25 +35,21 @@
 {%endblock headerContent%}
 {% block content %}
 <div class="container">
-  <div class="col-sm-12">
-    <div class="card" style="width: 28rem;">
+  
+    <div class="card">
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3879.521732756226!2d2.1109743137123114!3d13.503542206638688!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDMwJzEyLjciTiAywrAwNic0Ny40IkU!5e0!3m2!1sfr!2sne!4v1554854425955!5m2!1sfr!2sne" height="350" frameborder="0" style="border:2px solid black" allowfullscreen></iframe>
-      <div class="card-body">
+      <div class="card-body text-center">
           {% for data in nous %}
             <ul class="list-group list-group-flush">
-              <li class="list-group-item">Nous: {{data.nom}}</li>
-              <li class="list-group-item">Nous touchez: {{data.addresse}}</li>
-              <li class="list-group-item">Nous appelez: {{data.tel}}</li>
-              <li class="list-group-item">Nous ecrire: {{data.email}}</li>
-              <li class="list-group-item">Nous Faxez: {{data.fax}}</li>
-              <li class="list-group-item">Avec nous! : {{data.commentaire}}</li>
+              <li class="list-group-item"><span>Nous:</span> {{data.nom}}</li>
+              <li class="list-group-item"><span>Nous touchez:</span>{{data.addresse}}</li>
+              <li class="list-group-item"><span>Nous appelez:</span> {{data.tel}}</li>
+              <li class="list-group-item"><span>Nous ecrire:</span> {{data.email}}</li>
+              <li class="list-group-item"><span>Nous Faxez:</span> {{data.fax}}</li>
+              <li class="list-group-item"><span>Avec nous! :</span> {{data.commentaire}}</li>
             </ul>
           {% endfor %}
       </div>
-    </div>
-    
-   <!--  <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d3406.654440641171!2d2.136781088918852!3d13.507382528060855!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2sne!4v1584964880579!5m2!1sfr!2sne" width="400" height="300" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe> -->
-  </div>
-  
+    </div> 
 </div>
 {% endblock content %}    
