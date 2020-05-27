@@ -5,8 +5,9 @@ Created on 14 Noo 2019
 '''
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from .models import Vehicule, Trajet, Reservation, LieuDapart, LieuArrivee, NousContactez
+from .models import Vehicule, Trajet, Reservation, LieuDapart, LieuArrivee, NousContactez,Profile
 
+admin.site.register(Profile)
 admin.site.register(Vehicule)
 admin.site.register(Trajet)
 admin.site.register(Reservation)

@@ -1,7 +1,7 @@
 {% extends "index.html" %}
 {% load static %}
 Alternative Voyage - {% block title %}Details Trajet{% endblock title %}
-{% block mainSectionId %}details{% endblock mainSectionId%}
+{% block mainSectionId %}detailsdestination{% endblock mainSectionId%}
 {% block headerContent%}
 <div class="jumbotron text-center">
   <div id="demo" class="carousel slide" data-ride="carousel">
@@ -39,7 +39,9 @@ Alternative Voyage - {% block title %}Details Trajet{% endblock title %}
 {% block content %}
 <div class="row">
   <div class="col-sm-4">
-    <a href="#details" data-toggle="popover" title="Popover Header" data-content="{{ trajetId.vehicule.marque }}"> <img src={{trajetId.vehicule.image_vehicule.url}} alt="No image" class="img-thumbnail"></a>
+    <a href="#details" data-toggle="popover" title="Popover Header" data-content="{{ trajetId.vehicule.marque }}">
+     <img src={{trajetId.vehicule.image_vehicule.url}} alt="No image" class="img-thumbnail"\>
+    </a>
   </div>
   <div class="col-sm-8">
     <section id="secID1">
@@ -89,6 +91,10 @@ Alternative Voyage - {% block title %}Details Trajet{% endblock title %}
               </div>
 
               <div class="form-group row" style="margin: 0;">
+                <input type="hidden" class="form-control" id="id_num_vehicule" name="num_vehicule" value="{{ trajetId.vehicule.numero_vehicule }}" placeholder="id">
+              </div>
+
+              <div class="form-group row" style="margin: 0;">
                 <input type="hidden" class="form-control" id="id_lieu_depart" name="lieu_depart" value="{{ trajetId.depart}}" placeholder="depart">
               </div>
 
@@ -106,7 +112,7 @@ Alternative Voyage - {% block title %}Details Trajet{% endblock title %}
 
               <div class="form-group row">
                 <label for="id_pseudo_client">Pseudo</label>
-                <input type="text" class="form-control" id="id_pseudo_client" name="pseudo_client" value="{{ user.get_username }}">
+                <input type="text" class="form-control" id="id_pseudo_client" name="pseudo_client" value="{{ user.get_username }}" placeholder="Veuillez vous identifier avant de créer une réservation">
               </div>
 
               <div class="form-group row">

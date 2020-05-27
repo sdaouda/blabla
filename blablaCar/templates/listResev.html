@@ -1,43 +1,45 @@
 {% extends "index.html" %}
 {% load static %}
-
-
+{% block mainSectionId %}listresrvation{% endblock mainSectionId%}
 {% block content %}
 <div class="container">
-  <input type="text" id="myInput" class="form-control" onkeyup="" placeholder="Search for names.." title="Type in a name">
-  <br>
+  <hr/>
+  <input type="text" id="InputNumvehicule" class="form-control" onkeyup="SearchPerCarNumber()" placeholder="Recherche par numéro de véhicule..." title="Type in a name">
+  <hr/>
+  <input type="text" id="InputPhoneNumber" class="form-control" onkeyup="SearchPerNumber()" placeholder="Recherche par numéro de téléphone..." title="Type in a name">
+  <hr/>
+  <div class="table-responsive">
+  <table id="BookingTable" class="table table-hover table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Véhicule</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Contact</th>
+        <th scope="col">Départ</th>
+        <th scope="col">Arrivée</th>
+        <th scope="col">Date/h départ</th>
+        <th scope="col">Date/h arrivée</th>
+        <th scope="col">place</th>
+        <th scope="col">Payé</th>
+      </tr>
+    </thead>
+    <tbody>
   {% for res in resrv %}
-  <p>
-    <button class="btn btn-primary btn-lg btn-block reserv" type="button" data-toggle="collapse" data-target="#result_{{res.id}}" aria-expanded="false" aria-controls="result_{{res.id}}">
-            {{ res.created |date:"d M Y H:i" }} - {{res.contact_client}} / {{res.contact_client1}}
-    </button>
-  </p>
-  <div id="result_{{res.id}}" class="collapse">
-    <div class="card card-body" style="overflow-x:auto;">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Nom</th>
-            <th scope="col">Départ</th>
-            <th scope="col">Arrivée</th>
-            <th scope="col">Date/h départ</th>
-            <th scope="col">Date/h arrivée</th>
-            <th scope="col">place</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{res.non_client}}</td>
-            <td>{{res.lieu_depart}}</td>
-            <td>{{res.lieu_arrivee}}</td>
-            <td>{{res.heure_depart}}</td>
-            <td>{{res.heure_arrivee}}</td>
-            <td>{{res.nbPlace_Reservee}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <tr>
+      <td>{{res.num_vehicule}}</td>
+      <td>{{res.non_client}}</td>
+      <td>{{res.contact_client}}</td>
+      <td>{{res.lieu_depart}}</td>
+      <td>{{res.lieu_arrivee}}</td>
+      <td>{{res.heure_depart}}</td>
+      <td>{{res.heure_arrivee}}</td>
+      <td>{{res.nbPlace_Reservee}}</td>
+      <!-- <td><input type="checkbox" class="custom-control-input" id="defaultChecked2" checked></td> -->
+      <td><input type="checkbox" name="check" id="check" {% if res.payment %}checked disabled{% else %}disabled{% endif %}/></td>
+    </tr>
+  {% endfor %} 
+    </tbody>
+  </table>
   </div>
-  {% endfor %}  
- </div>
+</div>
 {% endblock content %}    

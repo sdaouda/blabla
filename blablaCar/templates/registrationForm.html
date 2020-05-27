@@ -6,16 +6,12 @@
 
 <div class="container">
 	<span><strong>Pas encore inscrit?</strong></span>
+	
 	<form method="post">
-		{% csrf_token %}
-		{% for field in contact_form.visible_fields %}
-			<div class="form-group">
-  				{{ field.label_tag }}
-  				{% render_field field class="form-control" style="max-width:50%; padding:0;" %}
-  			</div>
-  		{% endfor %}
-		<input type='submit' name='submit' value='sign_up'/>
-		<input type='hidden' value={{next}}/>
-	</form>
+  {% csrf_token %}
+  {{ user_form.as_p }}
+  {{ profile_form.as_p }}
+  <button type="submit">Save changes</button>
+</form>
 </div>
 {% endblock content %}

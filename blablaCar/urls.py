@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 from django.views.generic import RedirectView
 from django.contrib.auth import views as auth_views
 from blablaCar import views
+#from blablaCar.views import GeneratePdf
 
 
 urlpatterns = [
@@ -43,15 +44,17 @@ urlpatterns = [
     url(r'^contact/$' , views.Contact ,name = 'nouscontacter'),
     url(r'^policy/$' , views.CookiesPolicy ,name = 'cookiespolicy'),
     url(r'^condition/$' , views.ConditionUtilisation ,name = 'condUtil'),
-    #url(r'^logindata/$' , views.loginUser ,name = 'logindata'),
-    url(r'^registration/$' , views.registration ,name = 'register'),
-    url(r'^agent/$' , views.CreerTrajet ,name = 'creertrajet'),
+    url(r'^connexion/$' , views.loginUser ,name = 'loginuser'),
+    url(r'^registration/$' , views.signup ,name = 'register'),
+    url(r'^agent/$' , login_required(views.CreerTrajet) ,name = 'creertrajet'),
     #url(r'^vehicule/$' ,views.VehiculeCreate.as_view(),name = 'vehicule'),
     url(r'^vehicule/$' , login_required(views.VehiculeCreate.as_view()),name = 'vehicule'),
     url(r'^vehiculefinder/$' , views.TrouverVehi ,name = 'vehiculefinder'),
     url(r'^resultat_voiture/$' , views.DisplayVehi ,name = 'resultat_voiture'),
     url(r'^list_reservation/$' , views.listReservation ,name = 'list_reservation'),
     url(r'^apropos/$' , views.aproposdenous ,name = 'apropos'),
+    url(r'^billet/$' , views.receiptview ,name = 'billet'),
+    url(r'^pdf/$' , views.GeneratePdf,name = 'pdf'),
     
 ]
 

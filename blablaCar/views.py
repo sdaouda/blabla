@@ -9,8 +9,7 @@ from .models import Vehicule, Trajet, Reservation, LieuDapart, LieuArrivee,NousC
 from blablaCar.forms import ReservationForm,TrajetForm,DateForm,VehiculeForm,SignUpForm,LoginForm
 from django.db.models import Count
 from django.urls import reverse_lazy
-#from django.http import HttpResponseRedirect
-#from bootstrap_datepicker_plus import DateTimePickerInput
+from datetime import date
 from django.views import generic
 from datetime import datetime
 from django.views.generic.edit import UpdateView,DeleteView,CreateView
@@ -24,11 +23,19 @@ from django.db.models import Q
 #from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import User, Group, Permission
 from blablaCar.mixins import GroupRequiredMixin
+from django.db import transaction
+#from django.contrib.auth.forms import UserCreationForm
+from django.http import HttpResponse
+from django.views.generic import View
+import random
+from blablaCar.utils import render_to_pdf
+from io import BytesIO
+
 
 def is_in_groups(user,group):
     return user.groups.filter(name = group).exists()
 
-@login_required
+#@login_required(login_url='loginuser')
 def CreerTrajet(request):
     if request.method == 'POST':
         form = DateForm(request.POST)
@@ -163,23 +170,25 @@ def listVehicule(request):
     return render(request,'AllVehicule.html',{'listdesVehicule':listdesVehicule,'listdestrajets':listdestrajets})
 
 def DestDispo(request):
-    all_trajects_queryset_list = Trajet.objects.filter(available=True)
+    # all_trajects_queryset_list = Trajet.objects.filter(available=True)
+    all_trajects_queryset_list = Trajet.objects.all()
     destinationChoisie = request.GET.get('destination')
     if destinationChoisie != 'all':
         #localitequartier = destinationChoisie.split('-')
-        dest_trajects_queryset_list = all_trajects_queryset_list.filter(Q(arrivee__localite__icontains=destinationChoisie))
-        for dst in dest_trajects_queryset_list:
-            if dst.vehicule.nbPlace==0:
-                dst.available=False
-                dst.save()
+        dest_trajects_queryset_list = all_trajects_queryset_list.filter(Q
+            (arrivee__localite__icontains=destinationChoisie))
+        # for dst in dest_trajects_queryset_list:
+        #     if dst.vehicule.nbPlace==0:
+        #         dst.available=False
+        #         dst.save()
         return render(request,'listPerDest.html',
             {'dest_trajects_queryset_list':dest_trajects_queryset_list,
             'destinationChoisie':destinationChoisie},)
     else:
-        for dst in all_trajects_queryset_list:
-            if dst.vehicule.nbPlace==0:
-                dst.available=False
-                dst.save()
+        # for dst in all_trajects_queryset_list:
+        #     if dst.vehicule.nbPlace==0:
+        #         dst.available=False
+        #         dst.save()
         return render(request,'listPerDest.html',
             {'all_trajects_queryset_list':all_trajects_queryset_list,
             'destinationChoisie':destinationChoisie,})
@@ -191,7 +200,7 @@ def Test(request):
     form = ReservationForm()
     return render(request,'prestation.html',{'form':form,})
 
-@login_required(redirect_field_name='list_reservation')
+#@login_required(login_url='/loginuser/',redirect_field_name='list_reservation')
 def ClientReservation(request):
     traID = request.GET.get('idField')
     traID = int(traID)
@@ -203,30 +212,24 @@ def ClientReservation(request):
     plcInit = CarData.nbPlace
     plcPrise = request.GET.get('nbPlace_Reservee')
     plcPrise = int(plcPrise)
-    
+    invoice = random.randint(1,10000)
     if plcInit != 0:
         plcRestante = plcInit - plcPrise
         CarData.nbPlace = plcRestante
-        if plcRestante == 0:
-            trajetData.available = False
-            trajetData.save()
-        else:
-            CarData.save()
-    else:
-        trajetData.available = False
-        trajetData.save()
-        
-    #trajetData = Trajet.objects.get(id=traID)
-    
+        CarData.save()
     if request.method == "GET":
+        nomclient = request.GET.get('non_client')
+        contactclient = request.GET.get('contact_client')
         form = ReservationForm(request.GET)
         dep = form.is_valid()
         if form.is_valid():
             form.save(commit=True)
             #return redirect('listDest')
-            return render(request, 'prestation.html', {'trajetData':trajetData,'CarData':CarData,
-                'plcPrise':plcPrise,})
-        # return render(request, 'cookValidation.html',)
+            return render(request, 'receipt.html', {'trajetData':trajetData,'CarData':CarData,
+                'plcPrise':plcPrise,'invoice':invoice,'nomclient':nomclient,'contactclient':contactclient})
+        else:
+            data = print(form.errors)
+            return render(request, 'test.html',{'data':dep,})
     else:
         traID = 'DAOUDA IS FINE'
         return render(request, 'contact.html')
@@ -244,7 +247,7 @@ def ConditionUtilisation(request):
 def multiple_forms(request):
     if request.method == 'POST':
         contact_form = SignUpForm(request.POST)
-        login_form = LoginForm(request.POST)
+        #login_form = LoginForm(request.POST)
         if contact_form.is_valid() or login_form.is_valid():
           if request.POST.get('submit') == 'sign_in':
             username = request.POST['username']
@@ -279,45 +282,26 @@ def multiple_forms(request):
 
 def loginUser(request):
     if request.method == 'POST':
-        login_form = LoginForm(request.POST)
-        if login_form.is_valid():
-            username = request.POST['username']
-            password = request.POST['password']
-            if username and password:
-              user = authenticate(username=username, password=password)
-              if user:
-                login(request,user)
-                #return redirect('/')
-              else:
-                login_form = LoginForm()
+        nextpage = request.POST.get('nextp')
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                #messages.info(request, f"You are now logged in as {username}")
+                if nextpage == '/agent/':
+                    return redirect('/agent/')
+                else:
+                    return redirect('/')
+            else:
+                messages.error(request, "Invalid username or password.")
         else:
-            login_form = LoginForm()
-    else:
-        login_form = LoginForm()
-        return render(request, 'LoginForm.html', {'login_form': login_form})
+            messages.error(request, "Invalid username or password.")
+    form = LoginForm()
+    return render(request,'login.html',{"form":form,})
 
-def registration(request):
-    if request.method == 'POST':
-        contact_form = SignUpForm(request.POST)
-        if contact_form.is_valid():
-            contact_form.save()
-        username = contact_form.cleaned_data.get('username')
-        raw_password = contact_form.cleaned_data.get('password1')
-        user = authenticate(username=username, password=raw_password)
-        # group = Group.objects.get(name='Client')
-        # user.groups.add(group)
-        # permission = Permission.objects.get(name='Can view all trajet booked')
-        # user.user_permissions.add(permission)
-        login(request, user)
-        return redirect('/')
-        # if user.groups.filter(name = 'Client').exists():
-        #     return redirect('/')
-        # else:
-        #     contact_form = SignUpForm()
-        #     return render(request, 'registrationForm.html', {'contact_form': contact_form})
-    else:
-        contact_form = SignUpForm()
-        return render(request, 'registrationForm.html', {'contact_form': contact_form})
 
 def listReservation(request):
     resrv = Reservation.objects.all().order_by('-created')
@@ -325,3 +309,102 @@ def listReservation(request):
 
 def aproposdenous(request):
     return render(request,'apropos.html',{})
+
+def receiptview(request):
+    return render(request,'finalreceipt.html',{})
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            user.refresh_from_db()  # load the profile instance created by the signal
+            user.profile.birth_date = form.cleaned_data.get('birth_date')
+            user.save()
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=user.username, password=raw_password)
+            login(request, user)
+            return redirect('/')
+    else:
+        form = SignUpForm()
+    return render(request, 'signup.html', {'form': form})
+
+def pdf_view(request):
+    # fs = FileSystemStorage()
+    # filename = 'passwd1.pdf'
+    # if fs.exists(filename):
+    #     with fs.open(filename) as pdf:
+    #         response = HttpResponse(pdf, content_type='application/pdf')
+    #         response['Content-Disposition'] = 'attachment; filename="passwd1.pdf"'
+    #         return response
+    # else:
+    #     return HttpResponseNotFound('The requested pdf was not found in our server.')
+    if 'pdf' in request.GET:
+        response = HttpResponse(content_type='application/pdf')
+        today = date.today()
+        filename = 'pdf_demo' + today.strftime('%Y-%m-%d')
+        response['Content-Disposition'] = 'attachement; filename={0}.pdf'.format(filename)
+        buffer = BytesIO()
+        report = PdfPrint(buffer, 'A4')
+        pdf = report.report(weather_period, 'Weather statistics data')
+        response.write(pdf)
+        return response
+def GeneratePdf(request):
+    if request.GET:
+        trajID = request.GET.get('idTraj')
+        plcPrise = request.GET.get('placeP')
+        client = request.GET.get('client')
+        invoiceNumber = request.GET.get('invoiceNumber')
+        contactclient = request.GET.get('contactclient')
+        trajID = int(trajID)
+        plcPrise = int(plcPrise)
+        invoiceNumber = int(invoiceNumber)
+        trajetData = get_object_or_404(Trajet, pk=trajID)
+        typ = trajetData.vehicule.id
+        CarData = get_object_or_404(Vehicule, pk=typ)
+        plcInit = CarData.nbPlace
+    else:
+        trajID = 'non'
+    context = {
+        "invoice_id": invoiceNumber,
+        "Client": client,
+        "Trajet":"%s-%s" % (trajetData.depart,trajetData.arrivee),
+        "Depart": trajetData.heure_depart,
+        "Arrivee": trajetData.heure_arrivee,
+        "Nbplace": plcPrise,
+        "Prix": trajetData.tarif,
+    }
+    pdf = render_to_pdf('pdf/invoice.html', context)
+    # return HttpResponse(pdf, content_type='application/pdf')
+    if pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
+        filename = "Invoice_%s.pdf" %(contactclient)
+        content = "inline; filename='%s'" %(filename)
+        download = request.GET.get("download")
+        if download:
+            content = "attachment; filename='%s'" %(filename)
+        response['Content-Disposition'] = content
+        return response
+    return HttpResponse("Not found")
+
+# class GeneratePdf(View):
+#     def get(self, request, *args, **kwargs):
+#         traID = request.GET.get('idTraj')
+#         context = {
+#             "invoice_id": traID,
+#             "customer_name": "John Cooper",
+#             "amount": 1399.99,
+#             "today": "Today",
+#         }
+#         pdf = render_to_pdf('pdf/invoice.html', context)
+#         # return HttpResponse(pdf, content_type='application/pdf')
+#         if pdf:
+#             response = HttpResponse(pdf, content_type='application/pdf')
+#             filename = "Invoice_%s.pdf" %("12341")
+#             content = "inline; filename='%s'" %(filename)
+#             download = request.GET.get("download")
+#             if download:
+#                 content = "attachment; filename='%s'" %(filename)
+#             response['Content-Disposition'] = content
+#             return response
+#         return HttpResponse("Not found")

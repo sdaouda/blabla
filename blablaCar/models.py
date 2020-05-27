@@ -7,6 +7,10 @@ Created on 14 Noo 2019
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils import timezone
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from random import randint
 
 class LieuDapart(models.Model):
     localite = models.CharField(max_length=20, db_index=True)
@@ -75,6 +79,7 @@ class Trajet(models.Model):
 
 class Reservation(models.Model):
     idTrajet = models.IntegerField(blank=True, null=True)
+    num_vehicule = models.CharField(max_length=7,blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     lieu_depart = models.CharField(max_length=30,blank=True, null=True)
@@ -83,9 +88,10 @@ class Reservation(models.Model):
     heure_arrivee = models.CharField(max_length=30,blank=True, null=True)
     pseudo_client = models.CharField(max_length=30,blank=True, null=True)
     non_client = models.CharField(max_length=30,blank=True, null=True)
-    contact_client = models.CharField(max_length=15)
+    contact_client = models.CharField(max_length=15,blank=True, null=True)
     contact_client1 = models.CharField(max_length=15,blank=True, null=True)
-    nbPlace_Reservee = models.IntegerField(default=1)
+    nbPlace_Reservee = models.IntegerField(default=0)
+    payment = models.BooleanField(default=False)
     
     def __str__(self):
         return "%s--(%s)" % (self.non_client,self.contact_client1)
@@ -102,3 +108,17 @@ class NousContactez(models.Model):
     commentaire = models.TextField(blank=True,help_text='Autres commentaires')
     def __str__(self):
         return self.nom
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE,primary_key=True)
+    telephone = models.TextField(max_length=500, blank=True)
+
+    # @staticmethod
+    # def invoice_randint():
+    #     return str(randint(0, 2048))
+
+@receiver(post_save, sender=User)
+def update_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+    instance.profile.save()

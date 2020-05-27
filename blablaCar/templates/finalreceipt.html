@@ -1,0 +1,47 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block title %}Le Billet{% endblock title %}
+{% block bodyId %}finalreceipt{% endblock %}
+{% block headerContent %}
+<div class="jumbotron text-center">
+  <div id="demo" class="carousel slide" data-ride="carousel">
+
+    <!-- Indicators -->
+    <ul class="carousel-indicators">
+    <li data-target="#demo" data-slide-to="0" class="active"></li>
+    <li data-target="#demo" data-slide-to="1"></li>
+    </ul>
+    
+    <!-- The slideshow -->
+    <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static "images/Untitled45.jpg" %}" alt="Los Angeles" width="550" height="250">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static "images/Untitled46.jpg" %}" alt="Chicago" width="550" height="250">
+    </div>
+    </div>
+    
+    <!-- Left and right controls -->
+    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" href="#demo" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+    </a>
+  </div>
+</div>
+{%endblock headerContent%}
+{% block content %}
+<div class="container">
+  
+<div class="jumbotron border border-primary">
+  <h1 class="display-4">Hello, world!</h1>
+  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+  <hr class="my-4">
+  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+</div>
+<a class="btn btn-primary btn-lg" href="#" role="button">Imprimer ou gardez le numéro du billet</a>
+</div>
+{% endblock content %}    

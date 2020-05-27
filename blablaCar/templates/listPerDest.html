@@ -1,7 +1,7 @@
 {% extends "index.html" %}
 {% load static %}
 Alternative Voyage - {% block title %}Destination{% endblock title %}
-{% block mainSectionId %}mainList{% endblock mainSectionId%}
+{% block mainSectionId %}listDestination{% endblock mainSectionId%}
 {% block headerContent%}
 <div class="jumbotron text-center">
 	<div id="demo" class="carousel slide" data-ride="carousel">
@@ -36,13 +36,13 @@ Alternative Voyage - {% block title %}Destination{% endblock title %}
 {% block content %}
 <div class="row">
 	<div class="col-sm-12">
-		<div class="container-fluid mt-3">
+		<div class="container mt-3 table-responsive">
 			{% if destinationChoisie != "all" %}
 			<p>Vous allez à {{destinationChoisie}}...</p>
 			{% else %}
 			
 			{% endif %}
-			<table class="table table-hover">
+			<table class="table table-hover table-bordered">
 			  <thead>
 				<tr>
 				  <th scope="col">Depart</th>
@@ -58,7 +58,13 @@ Alternative Voyage - {% block title %}Destination{% endblock title %}
 						  <td>{{ dest.depart }}</td>
 						  <td>{{ dest.arrivee }}</td>
 						  <td>{{ dest.heure_depart|date:"d M Y H:m" }}</td>
-						  <td><a href="{{ dest.get_absolute_url }}"><button type="button" class="btn btn-outline-primary btn-lg">Primary</button></a></td>
+						  {% if dest.vehicule.nbPlace == 0 %}
+						  <td><a href="{{ dest.get_absolute_url }}"><button type="button" class="btn btn-danger btn-lg btn-block" disabled>Contactez-nous!</button></a></td>
+						  <td>Remplie</td>
+						  {% else %}
+						  <td><a href="{{ dest.get_absolute_url }}"><button type="button" class="btn btn-success btn-lg btn-block">Choisir</button></a></td>
+						  <td>{{dest.vehicule.nbPlace}} plc{{ dest.vehicule.nbPlace|pluralize }}</td>
+						  {% endif %}
 						</tr>
 					{% endfor %}
 				{% else %}
@@ -67,7 +73,13 @@ Alternative Voyage - {% block title %}Destination{% endblock title %}
 						  <td>{{ dest.depart }}</td>
 						  <td>{{ dest.arrivee }}</td>
 						  <td>{{ dest.heure_depart|date:"d M Y H:m" }}</td>
-						  <td><a href="{{ dest.get_absolute_url }}"><button type="button" class="btn btn-outline-primary btn-lg">Choisir</button></a></td>
+						  {% if dest.vehicule.nbPlace == 0 %}
+						  <td><a href="{% url "nouscontacter" %}"><button type="button" class="btn btn-danger btn-sm btn-block">Contactez-nous!</button></a></td>
+						  <td>Remplie</td>
+						  {% else %}
+						  <td><a href="{{ dest.get_absolute_url }}"><button type="button" class="btn btn-success btn-sm btn-block">Choisir</button></a></td>
+						  <td>{{dest.vehicule.nbPlace}} plc{{ dest.vehicule.nbPlace|pluralize }}</td>
+						  {% endif %}
 						</tr>
 					{% endfor %}
 				{% endif %}

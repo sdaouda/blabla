@@ -1,6 +1,6 @@
 {% extends "index.html" %}
 {% load static %}
-
+{% block mainSectionId %}listVehicule{% endblock mainSectionId%}
 {% block content %}
 <div id = "allV" class="container">
 	{% for car in listdesVehicule %}
@@ -9,7 +9,7 @@
 		<div class="row">
 	        <div class="col-sm-6" clearfix>
     			<a href="#details" data-toggle="popover" title="Popover Header" data-content="{{ trajetId.vehicule.marque }}"> <img src="{% if car.image_vehicule %}{{ car.image_vehicule.url }}{% else %}{% static "images/no_image.jpg" %}{% endif %}" alt="No image" class="img-thumbnail"></a>
-    			<p><a href="">{{ car.marque }}</a></p>
+    			<p><a href="">{{ car.marque }}-{{ car.numero_vehicule }}</a></p>
 	        </div>
 
   			<div class="col-sm-6" clearfix>
@@ -27,7 +27,7 @@
 				<div class="collapse" id="col_{{car.id}}">
 				  <div class="card card-body">
 				  	{% for trajet in listdestrajets %}
-				  		{% if trajet.id == car.id %}
+				  		{% if trajet.vehicule.id == car.id %}
 				  		{{trajet}}
 				  		{% endif %}
 				    {% endfor %}

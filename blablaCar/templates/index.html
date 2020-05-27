@@ -4,7 +4,8 @@
   {% load static %}
   <title>Alternative Voyage | {% block title %}Acceuil{% endblock %}</title>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
   <!-- Font Awesome -->
@@ -20,7 +21,7 @@
   {# Django Tempus Dominus assets are included in `{{ form.media }}` #}
     {{ form.media }}
 </head>
-<body id="{% block bodyId %}PageAccueil{% endblock %}">
+<body id="PageAccueil">
 	<div class="container">
 		<header>
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -51,23 +52,14 @@
 
 						<li class="nav-item dropdown border">
 							<a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							  <span>Traject</span>
+							  <span>Trajet</span>
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							  <a class="dropdown-item" href="{% url "creertrajet" %}">Proposer un trajet</a>
 							  <a class="dropdown-item" href="{% url "listdestrajets" %}">Liste des trajets disponibles</a>
 							 <!--  <div class="dropdown-divider"></div> -->
 							  <a class="dropdown-item" href="{% url "listDest" %}">Trouvez un trajet</a>
-							{% if perms.blablaCar %}
-							    {% if perms.blablaCar.can_view_all_trajet_booked %}
-							        <a class="dropdown-item" href="{% url "list_reservation" %}">Liste des trajets réservés</a>
-							    {% endif %}
-							{% else %}
-							    <a class="dropdown-item">......</a>
-							{% endif %}
-							 <!-- {% if perms.blablaCar.Can_view_all_trajet_booked %}
 							  <a class="dropdown-item" href="{% url "list_reservation" %}">Liste des trajets réservés</a>
-							  {% endif %} -->
 							</div>
 						</li>
 						
@@ -120,10 +112,8 @@
             Copyright &copy;<script>document.write(new Date().getFullYear());</script>
         </div>
 	</footer>
-	
-<!--     <div class="jumbotron text-center" style="margin-bottom:0;background-color:black;color:white;"> -->
-<!-- 		<a>Footer</a> -->
-<!-- 	</div> -->
+	<!-- Footer -->
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
@@ -204,8 +194,52 @@ function myFunction() {
     x.style.display = "none";
   }
 }
-
 </script>
+<script>
+function SearchPerCarNumber() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("InputNumvehicule");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("BookingTable");
+  tr = table.getElementsByTagName("tr");
 
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
+<script>
+function SearchPerNumber() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("InputPhoneNumber");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("BookingTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
 </body>
 </html> 

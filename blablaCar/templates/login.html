@@ -1,0 +1,13 @@
+{% extends "index.html" %}
+
+{% block content %}
+<form action="{% url 'loginuser' %}" method="post">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<p>
+		<input type="submit" value="Se connecter"/>
+		<input type='hidden' name="nextp" value={{next}}/>
+		<a href="{% url 'register'%}">Creer un compte</a>
+	</p>
+</form>
+{% endblock %}

@@ -8,6 +8,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 * {
 box-sizing: border-box;
 }
+html{
+	font-size: 16px;
+}
 body{
 	overflow-x: hidden;
 	
@@ -19,19 +22,19 @@ body{
 	min-height: 100vh;
 }
 
-.jumbotron{
+/*.jumbotron{
   	padding:0;
-}
+}*/
 /* Make the image fully responsive */
 .carousel-inner img {
   	width: 100%;
   	height: 100%;
 }
-.table{
+/*.table{
 	max-width: 100%;
 	border-collapse: collapse;
 	margin:0;
-}
+}*/
 div .cookSmall{
 	display: none;
 }
@@ -178,6 +181,7 @@ th.imgCel{
 	text-align: justify;
 	padding: 6px;"
 }
+
 #thefooter {
 		margin-top: 5px;
 		bottom: 0;
@@ -186,69 +190,50 @@ th.imgCel{
 		color: #fff;
 		background-color:black;
 }
-
+#detailsdestination table td{
+	padding: 0;
+}
 .footer-copyright {
 		
 		text-transform: uppercase;
 		font-size: 14px;
 }
+/*Responsive Tracks*/
 @media only screen and (max-width: 414px) {
-  body{
-  	font-family: Verdane,Helvetica, sans-serif;
-}
-.container{  
-  	  min-height: 100vh;
-}
-.container .reserv{
-  	font-size: 0.8em;
-}
-.container .collapse .card .table th td{
-	font-size: 10px;
-}
-.nav-item .dropdown-menu{
-	float: left;
-}
-.dropdown-menu{
-	min-width: 20rem;
-}
-#myDIV{
-  	display: none;
-  }
 
-#navbarSupportedContent a{
-	width:100px;
+#listDestination table td{
+	padding: 0;
 }
-#navbarSupportedContent a span {
-	width: 100%;
-} 
-.table td, .table th {
-	border:1px solid #ccc;
-	padding:0;
-	font-size:0.8rem;
-	text-align: center;
+#detailsdestination table td{
+	padding: 0;
 }
-.table{
-		max-width: 100%;
+#detailsdestination .img-thumbnail{
+	width: 100%
 }
-.detform {
-		
+#listresrvation table td{
+	padding: 0;
+	font-size: 0.7em;
 }
-.detform input[type="submit"]{
-		width: 100%;
+#listresrvation table th,#listresrvation table th{
+	padding: 0;
+	font-size: 0.7em;
 }
-.table tbody img {
-		margin:0 auto;
 }
-.card-img{
-		width: 50%;
-		padding: 40;
-}
-#thefooter {
 
-		bottom: 0;
-		width: 100%;
-		height: 6rem;
-		color: #fff;
-		background-color:black;
+@media only screen and (max-width: 768px) {
+
+#listDestination table td{
+	padding: 0;
+}
+#detailsdestination table td{
+	padding: 0;
+}
+#listresrvation table td, #listresrvation table th{
+	padding: 0;
+	font-size: 0.7em;
+}
+
+#detailsdestination .img-thumbnail{
+	width: 100%
 }
 }

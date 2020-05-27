@@ -6,8 +6,7 @@ Created on 14 Noo 2019
 # -*- coding: utf-8 -*-
 from django.forms import ModelForm
 from django import forms
-from .models import Trajet,Reservation,Vehicule
-from django import forms
+from .models import Trajet,Reservation,Vehicule,Profile
 #from bootstrap_datepicker_plus import DatePickerInput
 #from .widgets import BootstrapDateTimePickerInput
 from tempus_dominus.widgets import DateTimePicker
@@ -66,7 +65,7 @@ class DateForm(ModelForm):
 class ReservationForm(ModelForm):
     class Meta:
         model = Reservation
-        fields = ['idTrajet','lieu_depart','lieu_arrivee','heure_depart','heure_arrivee',
+        fields = ['idTrajet','num_vehicule','lieu_depart','lieu_arrivee','heure_depart','heure_arrivee',
         'pseudo_client','non_client','contact_client','contact_client1', 'nbPlace_Reservee']
 
 class VehiculeForm(ModelForm):
@@ -97,15 +96,15 @@ class MyForm(forms.Form):
     )
 
 class LoginForm(forms.Form):
-    username = forms.CharField(label='Courriel')
+    username = forms.CharField(label='pseudo')
     password = forms.CharField(label='Mot de passe',widget = forms.PasswordInput)
 
     # def clean(self):
     #     cleaned_data = super(LoginForm, self).clean()
-    #     email = cleaned_data.get("email")
-    #     password = cleaned_data.get("password")
-    #     if email and password:
-    #         result = User.objects.filter(password=password,email=email)
+    #     username = cleaned_data.get("username")
+    #     #password = cleaned_data.get("password")
+    #     if username:
+    #         result = User.objects.filter(username=username)
     #         if len(result) != 1:
     #             raise forms.ValidationError("Adresse de courriel ou mot de passe erone(e).")
     #         #if password != 'sesame' or email != 'sdaouda@gmail.com':
@@ -116,7 +115,8 @@ class SignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=False, help_text='',label='Nom')
     last_name = forms.CharField(max_length=30, required=False, help_text='',label='Prénom')
     email = forms.EmailField(max_length=254, help_text='')
+    telephone = forms.CharField(help_text='Numero de phone')
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
+        fields = ('username','first_name','last_name','email','telephone', 'password1', 'password2', )
